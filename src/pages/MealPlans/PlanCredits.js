@@ -246,8 +246,9 @@
 import { CssBaseline, Drawer, AppBar, Toolbar, List, ListItem, ListItemText, Container, Paper, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Button, Grid } from '@mui/material';
+import { Card, CardContent, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Button, Grid,IconButton  } from '@mui/material';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Dashboard = () => {
   const [mealPlan, setMealPlan] = useState({
@@ -320,6 +321,32 @@ const Dashboard = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("No authentication token found!");
+      return;
+    }
+
+    try {
+      const response = await axios.delete(`http://192.168.18.235:4000/api/mealPlanRoutes/meal-plans/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.success) {
+        fetchMealPlans(); // Refresh the meal plans after deletion
+        alert('Meal Plan Deleted Successfully');
+      } else {
+        alert('Failed to delete meal plan');
+      }
+    } catch (error) {
+      console.error("Error deleting meal plan:", error);
+      alert('Failed to delete meal plan');
+    }
+  };
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
@@ -345,6 +372,9 @@ const Dashboard = () => {
         <List>
           <ListItem button component={Link} to="/Dashboard" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem button component={Link} to="/DailyMenuNotifications" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Daily Menu" />
           </ListItem>
           <ListItem button component={Link} to="/plan-credits" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="Plan & Credits Management" />
@@ -477,20 +507,54 @@ const Dashboard = () => {
                 Previous Meal Plans
               </Typography>
               {mealPlans.length === 0 ? (
-                <Typography>No meal plans available.</Typography>
-              ) : (
-                mealPlans.map((plan, index) => (
-                  <Paper key={index} sx={{ padding: 2, marginBottom: 2, boxShadow: 2, borderRadius: 2 }}>
-                    <Typography variant="h6">{plan.name}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {plan.description}
-                    </Typography>
-                    <Typography variant="body2" color="textPrimary">
-                      Credits: {plan.credits} | Price: {plan.price} | Validity: {plan.validity} days | Type: {plan.planType}
-                    </Typography>
-                  </Paper>
-                ))
-              )}
+        <Typography variant="h6" color="textSecondary" align="center">
+          No meal plans available.
+        </Typography>
+      ) : (
+        mealPlans.map((plan, index) => (
+          <Paper
+            key={index}
+            sx={{
+              padding: 3,
+              marginBottom: 2,
+              boxShadow: 3,
+              borderRadius: 3,
+              backgroundColor: "#f9f9f9",
+            }}
+          >
+            <Grid container spacing={2} alignItems="center">
+              {/* Meal Plan Details */}
+              <Grid item xs={10}>
+                <Typography variant="h6" color="textPrimary">
+                  {plan.name}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {plan.description}
+                </Typography>
+                <Typography variant="body2" sx={{ marginTop: 1 }}>
+                  <strong>Credits:</strong> {plan.credits} |{" "}
+                  <strong>Price:</strong> ₹{plan.price} |{" "}
+                  <strong>Validity:</strong> {plan.validity} days |{" "}
+                  <strong>Type:</strong> {plan.planType}
+                </Typography>
+              </Grid>
+
+              {/* Delete Button */}
+              <Grid item xs={2}>
+                <Box display="flex" justifyContent="flex-end">
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(plan._id)}
+                    sx={{ backgroundColor: "#fdecea", "&:hover": { backgroundColor: "#f8d7da" } }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+        ))
+      )}
             </Grid>
           </Grid>
         </Container>

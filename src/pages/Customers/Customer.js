@@ -61,9 +61,12 @@ const Customer = () => {
           </Typography>
         </div>
         <List>
-        <ListItem button component={Link} to="/Dashboard" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
-          <ListItemText primary="Home" />
-        </ListItem>
+          <ListItem button component={Link} to="/Dashboard" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem button component={Link} to="/DailyMenuNotifications" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Daily Menu" />
+          </ListItem>
           <ListItem button component={Link} to="/plan-credits" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="Plan & Credits Management" />
           </ListItem>

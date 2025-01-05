@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import PlanCredits from "./pages/MealPlans/PlanCredits";
 import Customer from './pages/Customers/Customer'
 import QRCode from './pages/QRCode/QRCode';
+import DailyMenuNotifications from "./pages/DailyMenu/DailyMenu";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/plan-credits" element={<PlanCredits />} />
         <Route path="/allCustomers" element={<Customer />} />
         <Route path="/qr-scanning" element={<QRCode />} />
+        <Route path="/DailyMenuNotifications" element={<DailyMenuNotifications />} />
       </Routes>
     </Router>
   );
