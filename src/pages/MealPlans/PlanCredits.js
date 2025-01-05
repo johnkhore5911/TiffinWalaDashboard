@@ -278,6 +278,7 @@ const Dashboard = () => {
       // Update state with fetched meal plans
       if (response.data.success) {
         setMealPlans(response.data.data);
+        // fetchMealPlans();
       } else {
         setMealPlans([]);
       }

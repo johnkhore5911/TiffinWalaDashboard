@@ -1,28 +1,43 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Box, CssBaseline, Drawer, AppBar, Toolbar, Typography, List, ListItem, ListItemText, Button, Container, Grid, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Customer = () => {
-    const userCredits = [
-        {
-          name: "John Doe",
-          email: "john@example.com",
-          availableCredits: 10,
-          usedCredits: 20,
-        },
-        {
-          name: "Jane Smith",
-          email: "jane@example.com",
-          availableCredits: 3,
-          usedCredits: 27,
-        },
-        {
-          name: "Emily Davis",
-          email: "emily@example.com",
-          availableCredits: 15,
-          usedCredits: 15,
-        },
-      ];
+  
+  const [customers, setCustomers] = useState([]);
+
+  // Effect to fetch data periodically every 5 seconds
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        alert("No authentication token found!","Login again!");
+        return;
+      }
+        // Replace with your actual API endpoint
+        const response = await axios.get('http://192.168.18.235:4000/api/userRoutes/getAllCustomers',{
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        setCustomers(response.data);  // Update state with the fetched data
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();  // Initial fetch when component mounts
+
+    // Set interval to fetch data every 5 seconds
+    const intervalId = setInterval(fetchData, 5000);  // 5000ms = 5 seconds
+
+    // Cleanup on component unmount
+    return () => {
+      clearInterval(intervalId);  // Clear interval when the component unmounts
+    };
+  }, []);
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
@@ -79,18 +94,23 @@ const Customer = () => {
           <tr>
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Email</th>
-            <th style={styles.th}>Available Credits</th>
             <th style={styles.th}>Used Credits</th>
+            <th style={styles.th}>Available Credits</th>
+            <th style={styles.th}>mealPlanName</th>
+            <th style={styles.th}>mealPlanCredits</th>
+            <th style={styles.th}>mealPlanExpiryDate</th>
+            
           </tr>
         </thead>
         <tbody>
-          {userCredits.map((user, index) => (
+          {customers?.map((user, index) => (
             <tr
               key={user.email}
               style={index % 2 === 0 ? styles.rowEven : null}
             >
               <td style={styles.td}>{user.name}</td>
               <td style={styles.td}>{user.email}</td>
+              <td style={styles.td}>{user.usedCredits}</td>
               <td
                 style={{
                   ...styles.td,
@@ -99,72 +119,20 @@ const Customer = () => {
               >
                 {user.availableCredits}
               </td>
-              <td style={styles.td}>{user.usedCredits}</td>
+              <td style={styles.td}>{user.mealPlanName}</td>
+              <td style={styles.td}>{user.mealPlanCredits}</td>
+              {/* <td style={styles.td}>{user.mealPlanExpiryDate}</td> */}
+              <td style={styles.td}>
+              {user?.mealPlanExpiryDate
+                  ? new Date(user.mealPlanExpiryDate).toLocaleString() // Converts to local date and time
+                  : "N/A"}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
 
-
-                {/* <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: '#1e88e5',
-                    color: '#fff',
-                    width: '100%',
-                    padding: '15px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    '&:hover': {
-                      backgroundColor: '#1565c0',
-                    },
-                    marginBottom: '20px',
-                  }}
-                  component={Link}
-                  to="/plan-credits"
-                >
-                  Go to Plan & Credits Management
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: '#1e88e5',
-                    color: '#fff',
-                    width: '100%',
-                    padding: '15px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    '&:hover': {
-                      backgroundColor: '#1565c0',
-                    },
-                    marginBottom: '20px',
-                  }}
-                  component={Link}
-                  to="/qr-scanning"
-                >
-                  Go to QR Code Scanning
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: '#1e88e5',
-                    color: '#fff',
-                    width: '100%',
-                    padding: '15px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    '&:hover': {
-                      backgroundColor: '#1565c0',
-                    },
-                    marginBottom: '20px',
-                  }}
-                  component={Link}
-                  to="/meal-opt-out"
-                >
-                  Go to Meal Opt-Out Notifications
-                </Button> */}
-              {/* </Paper> */}
             </Grid>
           </Grid>
         </Container>
@@ -179,7 +147,7 @@ export default Customer;
 const styles = {
     container: {
       fontFamily: "Arial, sans-serif",
-      padding: "20px",
+      // padding: "20px",
       backgroundColor: "#f9f9f9",
       minHeight: "100vh",
     },
