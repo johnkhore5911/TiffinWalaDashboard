@@ -251,8 +251,9 @@ import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Dashboard = () => {
+  const [selectedOption, setSelectedOption] = useState('QR Code');
   const [mealPlan, setMealPlan] = useState({
-    name: '',
+    name: selectedOption,
     description: '',
     credits: '',
     price: '',
@@ -270,7 +271,7 @@ const Dashboard = () => {
         return;
       }
 
-      const response = await axios.get('http://192.168.18.235:4000/api/mealPlanRoutes/meal-plans', {
+      const response = await axios.get('https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -308,7 +309,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.post('http://192.168.18.235:4000/api/mealPlanRoutes/meal-plans', mealPlan, {
+      const response = await axios.post('https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans', mealPlan, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -329,7 +330,7 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await axios.delete(`http://192.168.18.235:4000/api/mealPlanRoutes/meal-plans/${id}`, {
+      const response = await axios.delete(`https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -382,8 +383,14 @@ const Dashboard = () => {
           <ListItem button component={Link} to="/qr-scanning" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="QR Code Scanning" />
           </ListItem>
+          <ListItem button component={Link} to="/DeliveryAssignment" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Delivery Assignment" />
+          </ListItem>
           <ListItem button component={Link} to="/meal-opt-out" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="Meal Opt-Out Notifications" />
+          </ListItem>
+          <ListItem button component={Link} to="/MissingTiffinStatus" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Missing Tiffin Reports" />
           </ListItem>
           <ListItem button component={Link} to="/allCustomers" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="View Avaliable Customers" />
@@ -407,7 +414,19 @@ const Dashboard = () => {
                       <form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
                           <Grid item xs={12}>
-                            <TextField
+
+                          <Select
+                            name="name"
+                            value={mealPlan.name}
+                            fullWidth
+                            onChange={handleInputChange}
+                            label="Meal Plan Name"
+                          >
+                            <MenuItem value="QR Code">QR Code</MenuItem>
+                            <MenuItem value="Tiffin System">Tiffin System</MenuItem>
+                          </Select>
+
+                            {/* <TextField
                               label="Meal Plan Name"
                               name="name"
                               value={mealPlan.name}
@@ -415,7 +434,7 @@ const Dashboard = () => {
                               fullWidth
                               required
                               variant="outlined"
-                            />
+                            /> */}
                           </Grid>
                           <Grid item xs={12}>
                             <TextField

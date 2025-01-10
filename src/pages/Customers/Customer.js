@@ -17,7 +17,7 @@ const Customer = () => {
         return;
       }
         // Replace with your actual API endpoint
-        const response = await axios.get('http://192.168.18.235:4000/api/userRoutes/getAllCustomers',{
+        const response = await axios.get('https://tiffin-wala-backend.vercel.app/api/userRoutes/getAllCustomers',{
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -73,8 +73,14 @@ const Customer = () => {
           <ListItem button component={Link} to="/qr-scanning" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="QR Code Scanning" />
           </ListItem>
+          <ListItem button component={Link} to="/DeliveryAssignment" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Delivery Assignment" />
+          </ListItem>
           <ListItem button component={Link} to="/meal-opt-out" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="Meal Opt-Out Notifications" />
+          </ListItem>
+          <ListItem button component={Link} to="/MissingTiffinStatus" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
+            <ListItemText primary="Missing Tiffin Reports" />
           </ListItem>
           <ListItem button component={Link} to="/allCustomers" sx={{ color: '#fff', '&:hover': { backgroundColor: '#555' } }}>
             <ListItemText primary="View Avaliable Customers" />

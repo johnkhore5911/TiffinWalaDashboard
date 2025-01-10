@@ -183,7 +183,7 @@ function Login() {
   const handleLogin = async () => {
     if (email && password) {
       try {
-        const response = await axios.post("http://192.168.18.235:4000/api/auth/login", {
+        const response = await axios.post("https://tiffin-wala-backend.vercel.app/api/auth/login", {
           email,
           password,
         });

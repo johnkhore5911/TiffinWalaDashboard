@@ -7,6 +7,8 @@ import PlanCredits from "./pages/MealPlans/PlanCredits";
 import Customer from './pages/Customers/Customer'
 import QRCode from './pages/QRCode/QRCode';
 import DailyMenuNotifications from "./pages/DailyMenu/DailyMenu";
+import DeliveryAssignment from "./pages/DeliveryAssignment/DeliveryAssignment";
+import MissingTiffinStatus from "./pages/Reports/MissingTiffinReport";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/allCustomers" element={<Customer />} />
         <Route path="/qr-scanning" element={<QRCode />} />
         <Route path="/DailyMenuNotifications" element={<DailyMenuNotifications />} />
+        <Route path="/DeliveryAssignment" element={<DeliveryAssignment />} />
+        <Route path="/MissingTiffinStatus" element={<MissingTiffinStatus />} />
       </Routes>
     </Router>
   );
