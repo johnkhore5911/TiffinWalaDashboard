@@ -72,6 +72,17 @@ const DeliveryAssignment = () => {
     fetchData();
   }, []);
 
+
+
+  useEffect(() => {
+    // Fetch data on component mount and then every 5 seconds
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+  
+    // Cleanup the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   // const handleAddCustomer = () => {
   //   if (
   //     selectedCustomer &&
