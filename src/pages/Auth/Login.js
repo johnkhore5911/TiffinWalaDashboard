@@ -186,6 +186,7 @@ function Login() {
         const response = await axios.post("https://tiffin-wala-backend.vercel.app/api/auth/login", {
           email,
           password,
+          fcmToken:"12345"
         });
         console.log("Reponse: ",response.data);
         localStorage.setItem("authToken", response.data.token);
