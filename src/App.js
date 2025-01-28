@@ -9,7 +9,7 @@ import QRCode from './pages/QRCode/QRCode';
 import DailyMenuNotifications from "./pages/DailyMenu/DailyMenu";
 import DeliveryAssignment from "./pages/DeliveryAssignment/DeliveryAssignment";
 import MissingTiffinStatus from "./pages/Reports/MissingTiffinReport";
-
+import OptOut from './pages/OptOut/Optout';
 function App() {
   return (
     <Router>
@@ -23,6 +23,7 @@ function App() {
         <Route path="/DailyMenuNotifications" element={<DailyMenuNotifications />} />
         <Route path="/DeliveryAssignment" element={<DeliveryAssignment />} />
         <Route path="/MissingTiffinStatus" element={<MissingTiffinStatus />} />
+        <Route path="/meal-opt-out" element={<OptOut />} />
       </Routes>
     </Router>
   );
