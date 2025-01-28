@@ -19,7 +19,7 @@ const DailyMenuNotifications = () => {
 
       // Replace with your backend API endpoint
       const response = await axios.post(
-        'https://tiffin-wala-backend3.vercel.app/send-meal-notification',
+        'https://tiffin-wala-backend.vercel.app/send-meal-notification',
         { message:menu },
         {
           headers: {

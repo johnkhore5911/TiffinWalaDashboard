@@ -271,7 +271,7 @@ const Dashboard = () => {
         return;
       }
 
-      const response = await axios.get('https://tiffin-wala-backend3.vercel.app/api/mealPlanRoutes/meal-plans', {
+      const response = await axios.get('https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -309,7 +309,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.post('https://tiffin-wala-backend3.vercel.app/api/mealPlanRoutes/meal-plans', mealPlan, {
+      const response = await axios.post('https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans', mealPlan, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -330,7 +330,7 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await axios.delete(`https://tiffin-wala-backend3.vercel.app/api/mealPlanRoutes/meal-plans/${id}`, {
+      const response = await axios.delete(`https://tiffin-wala-backend.vercel.app/api/mealPlanRoutes/meal-plans/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

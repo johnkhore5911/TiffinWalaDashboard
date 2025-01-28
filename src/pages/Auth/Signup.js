@@ -244,7 +244,7 @@ function Signup() {
 
     try {
       // Replace with your API endpoint
-      const response = await axios.post("https://tiffin-wala-backend3.vercel.app/api/auth/signup", {
+      const response = await axios.post("https://tiffin-wala-backend.vercel.app/api/auth/signup", {
         email,
         password,
         confirmPassword,
