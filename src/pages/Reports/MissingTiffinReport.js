@@ -31,7 +31,7 @@ const Dashboard = () => {
     const fetchMissedDeliveries = async () => {
       try {
         const token = localStorage.getItem('authToken'); // Fetch token from localStorage
-        const response = await axios.get('https://tiffin-wala-backend.vercel.app/api/deliveryRoutes/adminReportMissedTiffins', {
+        const response = await axios.get('https://tiffin-wala-backend3.vercel.app/api/deliveryRoutes/adminReportMissedTiffins', {
           headers: {
             Authorization: `Bearer ${token}`, // Add token to headers
           },
@@ -52,7 +52,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('authToken'); // Fetch token from localStorage
       await axios.post(
-        'https://tiffin-wala-backend.vercel.app/api/userRoutes/refundCredits', // Replace with the actual refund API endpoint
+        'https://tiffin-wala-backend3.vercel.app/api/userRoutes/refundCredits', // Replace with the actual refund API endpoint
         { deliveryId:id },
         {
           headers: {

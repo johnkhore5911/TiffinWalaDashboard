@@ -44,16 +44,16 @@ const DeliveryAssignment = () => {
     try {
       const token = localStorage.getItem('authToken');
       const customerResponse = await axios.get(
-        'https://tiffin-wala-backend.vercel.app/api/userRoutes/getTiffinSystemCustomers',
+        'https://tiffin-wala-backend3.vercel.app/api/userRoutes/getTiffinSystemCustomers',
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const deliveryResponse = await axios.get(
-        'https://tiffin-wala-backend.vercel.app/api/userRoutes/getDeliveryUsers',
+        'https://tiffin-wala-backend3.vercel.app/api/userRoutes/getDeliveryUsers',
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       const deliveryDataResponse = await axios.get(
-        'https://tiffin-wala-backend.vercel.app/api/deliveryRoutes/getAllDeliveries',
+        'https://tiffin-wala-backend3.vercel.app/api/deliveryRoutes/getAllDeliveries',
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -165,7 +165,7 @@ const DeliveryAssignment = () => {
     try {
       const token = localStorage.getItem('authToken');
       await axios.post(
-        'https://tiffin-wala-backend.vercel.app/api/deliveryRoutes/assignMultiple',
+        'https://tiffin-wala-backend3.vercel.app/api/deliveryRoutes/assignMultiple',
         tempSelectedCustomers,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -184,7 +184,7 @@ const DeliveryAssignment = () => {
     try {
       const token = localStorage.getItem('authToken');
       await axios.delete(
-        `https://tiffin-wala-backend.vercel.app/api/deliveryRoutes/delete/${deliveryPersonId}/${customerId}`,
+        `https://tiffin-wala-backend3.vercel.app/api/deliveryRoutes/delete/${deliveryPersonId}/${customerId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('Delivery deleted successfully.');

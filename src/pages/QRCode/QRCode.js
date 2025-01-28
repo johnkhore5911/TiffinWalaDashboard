@@ -46,8 +46,8 @@ const Dashboard = () => {
         return;
       }
       const response = await axios.post(
-        'https://tiffin-wala-backend.vercel.app/api/qrCodeRoutes/getScannedCustomers',
-        { qrCode: 'https://tiffin-wala-backend.vercel.app/api/qrCodeRoutes/scan-qr' },
+        'https://tiffin-wala-backend3.vercel.app/api/qrCodeRoutes/getScannedCustomers',
+        { qrCode: 'https://tiffin-wala-backend3.vercel.app/api/qrCodeRoutes/scan-qr' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.success) {
@@ -99,7 +99,7 @@ const Dashboard = () => {
       console.log("token: ",token);
       const validDate = getValidDate(validity);
       const response = await axios.post(
-        'https://tiffin-wala-backend.vercel.app/api/qrCodeRoutes/generate',
+        'https://tiffin-wala-backend3.vercel.app/api/qrCodeRoutes/generate',
         { validDate },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -17,7 +17,7 @@ const Customer = () => {
         return;
       }
         // Replace with your actual API endpoint
-        const response = await axios.get('https://tiffin-wala-backend.vercel.app/api/userRoutes/getAllCustomers',{
+        const response = await axios.get('https://tiffin-wala-backend3.vercel.app/api/userRoutes/getAllCustomers',{
           headers: {
             'Authorization': `Bearer ${token}`,
           },
